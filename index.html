@@ -14,7 +14,7 @@ let placarComputador = 0;
 let placarJogador = 0;
 
 // essa e funcao pricipal do jogo
-function jogar() {
+function iniciarJogo() {
     // Primeiro o jogador escolhe uma arma
         let escolhaJogador = prompt("Escolha sua arma: ", "Pedra, Papel, Tesoura"); 
         //existe uma verificaca que garante que a esolha seja valida
@@ -28,11 +28,11 @@ function jogar() {
         console.log(computerChoice);
         
         //outra funcao eh chamada e compara as duas escolhas e armazenar o resultado da comparaccao em result
-        const result = compare(escolhaJogador, computerChoice);
+        const result = compareChoices(escolhaJogador, computerChoice);
         console.log(result);
         
         // essa funcao eh chamada para atualizar o placar com base no resultado
-        placar(result); 
+        incrementPlacar(result); 
         console.log(placarComputador, placarJogador);
         alert(result + ' ' + placarComputador + 'X' + placarJogador );
 
@@ -42,7 +42,7 @@ function jogar() {
          } else if (placarJogador === 5) {
          alert("Você ganhou o jogo!");
          } else {
-        jogar();
+        iniciarJogo();
   }
 }
 
@@ -53,7 +53,7 @@ function getComputerChoice() {
   }
 
 // aqui eh definida a funcao que compara as duas escolhas e da um resultado
-function compare(escolhaJogador, computerChoice) {
+function compareChoices(escolhaJogador, computerChoice) {
     const jogadaJogador = escolhaJogador.toLowerCase();
     const jogadaComputador = computerChoice.toLowerCase();
     
@@ -83,7 +83,7 @@ function compare(escolhaJogador, computerChoice) {
 }
         
 // definicao da funcao que atualiza o placar apartir do resultado       
-} function placar(result) {
+} function incrementPlacar(result) {
         if (result === "Perdeu") { placarComputador++; } 
         else  if (result === "Ganhou") {placarJogador++;
     }
