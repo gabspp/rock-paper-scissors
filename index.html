@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+      
+
+// variaveis do placar dos jogadores sao iniciadas em zero      
+let placarComputador = 0;
+let placarJogador = 0;
+
+// essa e funcao pricipal do jogo
+function jogar() {
+    // Primeiro o jogador escolhe uma arma
+        let escolhaJogador = prompt("Escolha sua arma: ", "Pedra, Papel, Tesoura"); 
+        //existe uma verificaca que garante que a esolha seja valida
+            while (!["pedra", "papel", "tesoura"].includes(escolhaJogador.toLocaleLowerCase())) { 
+                escolhaJogador = prompt("Escolha uma opcao valida: ", " ")
+            }
+        console.log(escolhaJogador);
+            
+        //aqui eh chamada a funcao getCOmputerchoice e o resultado e armazenado na variavel
+        const computerChoice = getComputerChoice();
+        console.log(computerChoice);
+        
+        //outra funcao eh chamada e compara as duas escolhas e armazenar o resultado da comparaccao em result
+        const result = compare(escolhaJogador, computerChoice);
+        console.log(result);
+        
+        // essa funcao eh chamada para atualizar o placar com base no resultado
+        placar(result); 
+        console.log(placarComputador, placarJogador);
+        alert(result + ' ' + placarComputador + 'X' + placarJogador );
+
+        // no final do bloco e verificado se um dos jogadores atingiu 5. se nao, o jogo eh chamado novamente
+        if (placarComputador === 5) {
+        alert("O computador ganhou o jogo!");
+         } else if (placarJogador === 5) {
+         alert("Você ganhou o jogo!");
+         } else {
+        jogar();
+  }
+}
+
+// aquie eh definida a funcao que esolhe aleatorimente a opcao do computador
+function getComputerChoice() {
+    const opcoes = ["pedra", "papel", "tesoura"];
+    return opcoes[Math.floor(Math.random() * opcoes.length)];
+  }
+
+// aqui eh definida a funcao que compara as duas escolhas e da um resultado
+function compare(escolhaJogador, computerChoice) {
+    const jogadaJogador = escolhaJogador.toLowerCase();
+    const jogadaComputador = computerChoice.toLowerCase();
+    
+    if (jogadaComputador === jogadaJogador) {
+        return "Empate"
+    } else if (jogadaComputador === "pedra") {
+        if (jogadaJogador === "papel") {
+            return "Ganhou";
+        } else {
+            (jogadaJogador === "tesoura") ;
+            return "Perdeu";
+        }
+    }  else if (jogadaComputador === "papel") {
+            if (jogadaJogador === "pedra") {
+            return "Perdeu";
+    } else {(jogadaJogador === "tesoura") ;
+            return "Ganhou";
+        }
+    }   else { (jogadaComputador === "tesoura") 
+    {
+    if (jogadaJogador === "pedra") {
+    return "Ganhou";
+    } else {(jogadaJogador === "papel") 
+    return "Perdeu";
+    }
+}
+}
+        
+// definicao da funcao que atualiza o placar apartir do resultado       
+} function placar(result) {
+        if (result === "Perdeu") { placarComputador++; } 
+        else  if (result === "Ganhou") {placarJogador++;
+    }
+    }   
+//a funcao que inicia o jogo eh chamada 
+jogar();
+
+
+    </script>
+</body>
+</html>
