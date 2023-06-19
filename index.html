@@ -3,93 +3,299 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@300;400;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/61ef4270fb.js" crossorigin="anonymous"></script>
+
     <title>Document</title>
 </head>
 <body>
-    <script>
-      
 
-// variaveis do placar dos jogadores sao iniciadas em zero      
+
+   <!-- Criar 3 butoes que ao serem clicados vao ativar selecionar a escolha do jogador 
+
+
+
+
+
+-->
+<div class="playfield">
+
+    <h1 class="playfield-title">Escolha sua arma</h1>
+    
+
+
+
+    <div class="card-container">
+        <div class="card" id= "pedra">
+           
+                <img class="card-top rock"  src="/imgs/hand-back-fist-solid.svg" alt="">
+        
+        
+           
+                <img class="card-center rock" src="/imgs/hand-back-fist-solid.svg" alt="">
+         
+        
+          
+                <img class="card-bottom rock" src="/imgs/hand-back-fist-solid.svg" alt="">
+           
+        </div>
+        
+        <div class="card" id= "papel">
+           
+            <img class="card-top paper" src="/imgs/hand-solid.svg" alt="">
+        
+        
+        
+            <img class="card-center paper" src="/imgs/hand-solid.svg" alt="">
+        
+        
+        
+            <img class="card-bottom paper" src="/imgs/hand-solid.svg" alt="">
+        
+        </div>
+        
+        <div class="card" id= "tesoura">
+           
+            <img class="card-top scissors" src="/imgs/hand-scissors-solid.svg" alt="">
+        
+        
+        
+            <img class="card-center scissors" src="/imgs/hand-scissors-solid.svg" alt="">
+        
+        
+        
+            <img class="card-bottom scissors" src="/imgs/hand-scissors-solid.svg" alt="">
+        
+        </div>
+        </div>
+<div class="match">
+    <h2 class="player-choice match-display" id="escolha-jogador" > <img src="imgs/hand-back-fist-solid.svg"></img>Player</h2>
+    <i class="fa-solid fa-xmark"></i>
+    <h2 class="computer-choice match-display" id="escolha-computador"><img src="imgs/hand-back-fist-solid.svg"></img> computador </h2>
+    <h2 class="result-diplay match-display" id="resultado" ><img src="imgs/thumbs-up-solid.svg"></img> resultado </h2>
+</div>  
+<div class="scoreboard">
+    <div class="scoreboard-player">
+        <p id="player-score"> </p>
+</div>
+    <i class="fa-solid fa-xmark"></i>
+    
+    <div class="scoreboard-computer ">
+  <p id="computer-score"> </p>
+</div>
+
+   
+</div> 
+  <h1 id="final-result-display"> </h1>
+
+   
+</div>
+
+    <script>
+
+
 let placarComputador = 0;
 let placarJogador = 0;
 
-// essa e funcao pricipal do jogo
-function iniciarJogo() {
-    // Primeiro o jogador escolhe uma arma
-        let escolhaJogador = prompt("Escolha sua arma: ", "Pedra, Papel, Tesoura"); 
-        //existe uma verificaca que garante que a esolha seja valida
-            while (!["pedra", "papel", "tesoura"].includes(escolhaJogador.toLocaleLowerCase())) { 
-                escolhaJogador = prompt("Escolha uma opcao valida: ", " ")
-            }
-        console.log(escolhaJogador);
-            
-        //aqui eh chamada a funcao getCOmputerchoice e o resultado e armazenado na variavel
-        const computerChoice = getComputerChoice();
-        console.log(computerChoice);
-        
-        //outra funcao eh chamada e compara as duas escolhas e armazenar o resultado da comparaccao em result
-        const result = compareChoices(escolhaJogador, computerChoice);
-        console.log(result);
-        
-        // essa funcao eh chamada para atualizar o placar com base no resultado
-        incrementPlacar(result); 
-        console.log(placarComputador, placarJogador);
-        alert(result + ' ' + placarComputador + 'X' + placarJogador );
+const escolhaComputadorDisplay = document.getElementById("escolha-computador")
+const escolhaJogadorDisplay = document.getElementById("escolha-jogador")
+const resultadoDisplay = document.getElementById("resultado")
+const btnPedra = document.getElementById("pedra")
+const btnPapel = document.getElementById("papel")
+const btnTesoura = document.getElementById("tesoura")
+const opcoesJogador = document.querySelectorAll(".card")
+const imgPedra = document.querySelector(".rock")
+const imgPapel = document.querySelector(".paper")
+const imgTesoura  = document.querySelector(".scissors")
+const placarJogadorDisplay = document.getElementById("player-score")
+const placarComputadorDisplay = document.getElementById("computer-score")
+const resultadoFinal = document.getElementById("final-result-display")
+let escolhaJogador
+let escolhaComputador
+let resultadoComparacao
 
-        // no final do bloco e verificado se um dos jogadores atingiu 5. se nao, o jogo eh chamado novamente
-        if (placarComputador === 5) {
-        alert("O computador ganhou o jogo!");
-         } else if (placarJogador === 5) {
-         alert("Você ganhou o jogo!");
-         } else {
-        iniciarJogo();
+
+
+btnPedra.addEventListener("click", (e) => {
+  escolhaJogador = e.target.id;
+  console.log(escolhaJogador)
+  escolhaJogadorDisplay.innerHTML = "<img src=\"/imgs/hand-back-fist-solid.svg\">"  + "Pedra"
+  geradorEscolhaComputador()
+  placarFinal () 
+})
+
+btnPapel.addEventListener("click", (e) => {
+  escolhaJogador = e.target.id;
+  console.log(escolhaJogador)
+  escolhaJogadorDisplay.innerHTML = "<img src=\"/imgs/hand-solid.svg\">" + "Papel"
+  geradorEscolhaComputador()
+  placarFinal () 
+})
+
+btnTesoura.addEventListener("click", (e) => { 
+  escolhaJogador = e.target.id;
+  console.log(escolhaJogador)
+  escolhaJogadorDisplay.innerHTML = "<img src=\"/imgs/hand-scissors-solid.svg\" width=\"20px\" height=\"20px\">" +  "Tesoura" 
+  geradorEscolhaComputador()
+  placarFinal () 
+})
+
+const opcoes = ["Pedra", "Papel", "Tesoura" ]
+function geradorEscolhaComputador() {
+  const numeroAleatorio = Math.floor(Math.random() * 3)
+  
+  if (numeroAleatorio === 0) {
+    escolhaComputador = "Pedra"
   }
+  
+  if (numeroAleatorio === 1) {
+    escolhaComputador = "Papel"
+  }
+  
+  if (numeroAleatorio === 2) {
+    escolhaComputador = "Tesoura" 
+  }
+  escolhaComputadorDisplay.innerHTML = escolhaComputador
+  resultadoPartida();
 }
 
-// aquie eh definida a funcao que esolhe aleatorimente a opcao do computador
-function getComputerChoice() {
-    const opcoes = ["pedra", "papel", "tesoura"];
-    return opcoes[Math.floor(Math.random() * opcoes.length)];
-  }
 
-// aqui eh definida a funcao que compara as duas escolhas e da um resultado
-function compareChoices(escolhaJogador, computerChoice) {
-    const jogadaJogador = escolhaJogador.toLowerCase();
-    const jogadaComputador = computerChoice.toLowerCase();
+const resultadoPartida = () => {
+
+    switch (escolhaComputador+escolhaJogador) {
+        case 'Tesourapapel':
+        case 'Pedratesoura':
+        case 'Papelpedra': 
+        resultadoDisplay.innerHTML = "Perdeu"
+        placarComputador++;
+        return "Computer";
+        break 
+        case 'Papeltesoura':
+        case 'Tesourapedra':
+        case 'Pedrapapel': 
+        resultadoDisplay.innerHTML = "Ganhou"
+        placarJogador++;
+        return "Player";
+        break
+        case 'Papelpapel':
+        case 'Tesouratesoura':
+        case 'Pedrapedra':
+        resultadoDisplay.innerHTML = "Empate"
+        break
+    }
     
-    if (jogadaComputador === jogadaJogador) {
-        return "Empate"
-    } else if (jogadaComputador === "pedra") {
-        if (jogadaJogador === "papel") {
-            return "Ganhou";
-        } else {
-            (jogadaJogador === "tesoura") ;
-            return "Perdeu";
-        }
-    }  else if (jogadaComputador === "papel") {
-            if (jogadaJogador === "pedra") {
-            return "Perdeu";
-    } else {(jogadaJogador === "tesoura") ;
-            return "Ganhou";
-        }
-    }   else { (jogadaComputador === "tesoura") 
-    {
-    if (jogadaJogador === "pedra") {
-    return "Ganhou";
-    } else {(jogadaJogador === "papel") 
-    return "Perdeu";
-    }
 }
-}
+
+function placarFinal () {
+    placarJogadorDisplay.textContent = `Player: ${placarJogador} `
+    placarComputadorDisplay.textContent = `Computer: ${placarComputador}`;
+    if (placarComputador === 5) {
+        resultadoFinal.textContent= "Voce perdeu!"
+        reset()
         
-// definicao da funcao que atualiza o placar apartir do resultado       
-} function incrementPlacar(result) {
-        if (result === "Perdeu") { placarComputador++; } 
-        else  if (result === "Ganhou") {placarJogador++;
     }
-    }   
-//a funcao que inicia o jogo eh chamada 
-jogar();
+    if (placarJogador === 5) {
+        resultadoFinal.textContent= "Voce Ganhou!"
+        reset()
+    }
+
+}
+
+function reset(){
+    placarComputador = 0;
+    placarJogador = 0
+
+}
+
+
+
+
+
+//   if (escolhaComputador === escolhaJogador) {
+//     resultadoComparacao = "Empate"
+//   }
+//   else if (escolhaComputador === "Pedra" && escolhaJogador === "Papel") {
+//     resultadoComparacao = "Ganhou"
+//   }
+//   else if (escolhaComputador === "Pedra" && escolhaJogador === "Tesoura") {
+//     resultadoComparacao = "Perdeu"
+//   }
+//   else if (escolhaComputador === "Papel" && escolhaJogador === "Pedra") {
+//     resultadoComparacao = "Perdeu"
+//   }
+//   else if (escolhaComputador === "Papel" && escolhaJogador === "Tesoura") {
+//     resultadoComparacao = "Ganhou"
+//   }
+//   else if (escolhaComputador === "Tesoura" && escolhaJogador === "Papel") {
+//     resultadoComparacao = "Perdeu"
+//   }
+//   else if (escolhaComputador === "Tesoura" && escolhaJogador === "Pedra") {
+//     resultadoComparacao = "Ganhou"
+//   } resultadoDisplay.innerHTML = resultadoComparacao
+//   console.log(resultadoComparacao)
+ 
+
+
+
+        
+//         //outra funcao eh chamada e compara as duas escolhas e armazenar o resultado da comparaccao em result
+//         const result = compareChoices(jogadaJogador, computerChoice);
+//         console.log(result);
+        
+//         // essa funcao eh chamada para atualizar o placar com base no resultado
+//         incrementPlacar(result); 
+//         console.log(placarComputador, placarJogador);
+//         alert(result + ' ' + placarComputador + 'X' + placarJogador );
+
+//         // no final do bloco e verificado se um dos jogadores atingiu 5. se nao, o jogo eh chamado novamente
+//         // if (placarComputador === 5) {
+//         // alert("O computador ganhou o jogo!");
+//         //  } else if (placarJogador === 5) {
+//         //  alert("Você ganhou o jogo!");
+//         //  } else {
+//         iniciarJogo();
+//   }
+
+
+// // // aquie eh definida a funcao que esolhe aleatorimente a opcao do computador
+// const opcoes = ["pedra", "papel", "tesoura" ]
+// const geradorEscolhaComputador = () => {
+//     const escolhaComputador = opcoes[Math.floor(Math.random() * opcoes.length)]
+//     return escolhaComputador;
+//     console.log(opcoes)
+// }
+// geradorEscolhaComputador()
+// console.log(geradorEscolhaComputador(opcoes));
+
+
+
+
+// // // aqui eh definida a funcao que compara as duas escolhas e da um resultado
+// function compareChoices(jogadaJogador, geradorEscolhaComputador) {
+// //  
+    
+
+// }
+
+// // definicao da funcao que atualiza o placar apartir do resultado       
+// } function incrementPlacar(result) {
+//         if (result === "Perdeu") { placarComputador++; } 
+//         else  if (result === "Ganhou") {placarJogador++;
+//     }
+//     }   
+// //a funcao que inicia o jogo eh chamada 
+// iniciarJogo();
+
+// // Codigo antigo:
+
+//         //existe uma verificaca que garante que a esolha seja valida
+//             // while (!["pedra", "papel", "tesoura"].includes(escolhaJogador.toLocaleLowerCase())) { 
+//             //     escolhaJogador = prompt("Escolha uma opcao valida: ", " ")
+//             // }
+//             // let escolhaJogador = prompt("Escolha sua arma: ", "Pedra, Papel, Tesoura"); 
 
 
     </script>

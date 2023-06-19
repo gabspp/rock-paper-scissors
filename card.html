@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.card-container {
+    display: flex;
+}
+
+ .card{
+ width:250px;
+   height:400px;
+   background-color:#fff;
+   border-radius:20px;
+   margin: 20px;
+  display: flex;
+   flex-direction:column;
+   justify-content: center;
+   align-items: flex-end;
+   flex-wrap: nowrap;
+   box-shadow:-5px 5px 15px rgba(0,0,0,0.3), 0px 0px 2px rgba(0,0,0,0.5);
+ 
+ } 
+
+ .card-top.rock{
+    top: 120px;
+ }
+
+ .card-bottom.rock{
+    top: -120px;
+ }
+
+ .card-bottom.scissors {
+    transform: rotate(270deg);
+ }
+
+ .card-center.scissors,
+ .card-top.scissors {
+    transform: rotate(90deg);
+ }
+
+ .card-bottom.scissors {
+    transform: rotate(270deg);
+ }
+
+ .card-top {
+    scale: 10%;
+    width: 100%;
+    max-height:100%; 
+    max-width:100%;
+  margin: 0;
+  padding: 0;
+  object-fit: cover;
+  position: relative;
+    top: 75px;
+    left: -100px;
+  
+ }
+
+ .card-center {
+    scale: 55%;
+    display: block;
+    width: 100%;    
+ }
+
+ .card-bottom {
+
+    transform: rotate(180deg);
+    scale: 10%;
+    max-height:100%; 
+    max-width:100%;
+  margin: 0;
+  padding: 0;
+  object-fit: cover;
+  position: relative;
+    top: -75px;
+    left: 100px;
+    
+ }
+
+
+ 
+   </style>
+</head>
+<body>
+    
+    <div class="card-container">
+<div class="card">
+   
+        <img class="card-top rock" src="/imgs/hand-back-fist-solid.svg" alt="">
+
+
+   
+        <img class="card-center rock" src="/imgs/hand-back-fist-solid.svg" alt="">
+ 
+
+  
+        <img class="card-bottom rock" src="/imgs/hand-back-fist-solid.svg" alt="">
+   
+</div>
+
+<div class="card">
+   
+    <img class="card-top paper" src="/imgs/hand-solid.svg" alt="">
+
+
+
+    <img class="card-center paper" src="/imgs/hand-solid.svg" alt="">
+
+
+
+    <img class="card-bottom paper" src="/imgs/hand-solid.svg" alt="">
+
+</div>
+
+<div class="card">
+   
+    <img class="card-top scissors" src="/imgs/hand-scissors-solid.svg" alt="">
+
+
+
+    <img class="card-center scissors"  src="/imgs/hand-scissors-solid.svg" alt="">
+
+
+
+    <img class="card-bottom scissors" src="/imgs/hand-scissors-solid.svg" alt="">
+
+</div>
+</div>
+
+
+</body>
+</html>
